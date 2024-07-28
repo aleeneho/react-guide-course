@@ -16,7 +16,8 @@ export default function Quiz() {
   }, []);
 
   const handleSkipAnswer = useCallback(
-    () => handleSelectAnswer(null), [handleSelectAnswer]);
+    () => handleSelectAnswer(null), [handleSelectAnswer]
+  );
 
   if (quizIsComplete) {
     return (
@@ -32,7 +33,7 @@ export default function Quiz() {
   return (
     <div id='quiz'>
       <div id='question'>
-        <QuestionTimer timeout={10000} onTimeout={} />
+        <QuestionTimer key={activeQuestionIndex} timeout={10000} onTimeout={handleSkipAnswer} />
         <h2>{QUESTION[activeQuestionIndex].text}</h2>
         <ul id='answers'>
           {shuffledAnswer.map((answer)=>(
