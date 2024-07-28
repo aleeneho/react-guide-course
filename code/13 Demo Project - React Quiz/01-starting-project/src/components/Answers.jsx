@@ -1,16 +1,18 @@
 import { useRef } from 'react';
+// import QUESTION from '../questions';
+
 
 export default function Answers({answers, selectedAnswer, answerState, onSelect }) {
   const shuffledAnswers = useRef()
 
   if (!shuffledAnswers.current) {
-    shuffledAnswers.current = [...QUESTION[activeQuestionIndex].answers].sort(() => Math.random() - 0.5);
+    shuffledAnswers.current = [...answers].sort(() => Math.random() - 0.5);
     };
 
   return (
     <ul id='answers'>
     {shuffledAnswers.current.map((answer)=> {
-      const isSelected = userAnswer[userAnswer.length - 1] === answer;
+      const isSelected = selectedAnswer === answer;
       let cssClasses = '';
 
       if (answerState === 'answered' && isSelected) {
