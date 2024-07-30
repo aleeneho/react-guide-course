@@ -1,7 +1,9 @@
 import { useState, Component } from 'react';
 import User from './User';
+// import UserFinder from './UserFinder';
 
 import classes from './Users.module.css';
+import { render } from '@testing-library/react';
 
 // const DUMMY_USERS = [
 //   { id: 'u1', name: 'Max' },
