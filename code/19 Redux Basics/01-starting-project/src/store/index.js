@@ -7,6 +7,12 @@ const conuterReducer = (state = { counter: 0 }, action) => {
     };
   }
 
+  if (action.type === 'incrementBy5') {
+    return {
+      counter: state.counter + action.amount,
+    };
+  }
+
   if (action.type === 'decrement') {
     return {
       counter: state.counter - 1,
@@ -18,4 +24,4 @@ const conuterReducer = (state = { counter: 0 }, action) => {
 
 const store = createStore(conuterReducer);
 
-export default store;
+export default store
