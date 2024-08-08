@@ -1,5 +1,5 @@
-import { createStore } from 'redux';
-import { createSlice } from '@reduxjs/toolkit';
+// import { createStore } from 'redux';
+import { createSlice, configureStore } from '@reduxjs/toolkit';
 // export const INCREMENT = 'increment';
 
 const initialState = {
@@ -7,7 +7,7 @@ const initialState = {
   showCounter: true,
 };
 
-createSlice({
+const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
@@ -26,38 +26,40 @@ createSlice({
   },
 })
 
-const conuterReducer = (state = initialState, action) => {
-  if (action.type === 'increment') {
-    return {
-      counter: state.counter + 1,
-      showCounter: state.showCounter,
-    };
-  }
+// const conuterReducer = (state = initialState, action) => {
+//   if (action.type === 'increment') {
+//     return {
+//       counter: state.counter + 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === 'incrementBy5') {
-    return {
-      counter: state.counter + action.amount,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === 'incrementBy5') {
+//     return {
+//       counter: state.counter + action.amount,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if (action.type === 'decrement') {
-    return {
-      counter: state.counter - 1,
-      showCounter: state.showCounter,
-    };
-  }
+//   if (action.type === 'decrement') {
+//     return {
+//       counter: state.counter - 1,
+//       showCounter: state.showCounter,
+//     };
+//   }
 
-  if(action.type === 'toggle') {
-    return {
-      showCounter: !state.showCounter,
-      counter: state.counter,
-    };
-  }
+//   if(action.type === 'toggle') {
+//     return {
+//       showCounter: !state.showCounter,
+//       counter: state.counter,
+//     };
+//   }
 
-  return state;
-};
+//   return state;
+// };
 
-const store = createStore(conuterReducer);
+const store = configureStore({
+  reducer: { counter: counterSlice.reducer },
+});
 
-export default store
+export default store;
