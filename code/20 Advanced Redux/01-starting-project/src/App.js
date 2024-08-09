@@ -66,6 +66,11 @@ function App() {
   //     })
   //   );
   // });
+
+  if (cart.changed) {
+    dispatch(sendCartData(cart));
+  }
+  
   dispatch(sendCartData(cart));
 }, [cart, dispatch]);
 
