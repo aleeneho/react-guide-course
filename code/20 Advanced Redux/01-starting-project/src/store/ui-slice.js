@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 const uiSlice = createSlice({
   name: 'ui',
