@@ -1,37 +1,22 @@
-import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import EventsList from '../components/EventsList';
+import classes from './EventsNavigation.module.css';
 
-function EventsPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [fetchedEvents, setFetchedEvents] = useState();
-  const [error, setError] = useState();
-
-  useEffect(() => {
-    async function fetchEvents() {
-      setIsLoading(true);
-      const response = await fetch('http://localhost:8080/events');
-
-      if (!response.ok) {
-        setError('Fetching events failed.');
-      } else {
-        const resData = await response.json();
-        setFetchedEvents(resData.events);
-      }
-      setIsLoading(false);
-    }
-
-    fetchEvents();
-  }, []);
+function EventsNavigation() {
   return (
-    <>
-      <div style={{ textAlign: 'center' }}>
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-      </div>
-      {!isLoading && fetchedEvents && <EventsList events={fetchedEvents} />}
-    </>
+    <header className={classes.header}>
+      <nav>
+        <ul className={classes.list}>
+          <li>
+            <NavLink to="/events" className={({isActive})=> isActive ? classes.active: undefined} end>All Events</NavLink>
+          </li>
+          <li>
+            <NavLink to="/events/new" className={({isActive})=> isActive ? classes.active: undefined}>New Event</NavLink>
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 }
 
-export default EventsPage;
+export default EventsNavigation;
