@@ -1,8 +1,13 @@
+import EventForm from '../components/EventForm';
+
 function NewEventPage() {
+  
+  function submitHandler(event) {
+    event.preventDefault();
+
+  }
   return (
-    <h1>
-      New Event Page
-    </h1>
+    <EventForm />
   )
 }
 
