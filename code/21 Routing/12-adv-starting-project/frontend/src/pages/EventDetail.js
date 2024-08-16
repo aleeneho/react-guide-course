@@ -1,80 +1,85 @@
-import { useRouteLoaderData, json, redirect, defer, Await } from "react-router-dom";
-import EventItem from "../components/EventItem";
-import { Suspense } from 'react';
+import { useRouteLoaderData, json, redirect, defer, Await} from 'react-router-dom';
+import {Suspense } from 'react';
 
+import EventItem from '../components/EventItem';
+import EventsList from '../components/EventsList';
 
-function EventDetailPage(){
+function EventDetailPage() {
   const {event, events} = useRouteLoaderData('event-detail');
 
-  return (
+  return(
     <>
-      <Suspense fallback={<p style={{ textAlign: 'center'}}>Loading...</p>}>
-        <Await resolve={event}>
-          {loaderEvent => <EventItem event={loaderEvent} />}
-        </Await>
-      </Suspense>
-      <Suspense fallback={<p style={{ textAlign: 'center'}}>Loading...</p>}>
-        <Await resolve={events}>
-        {loaderEvents => <EventItem events={loaderEvents} />}
-        </Await>
-      </Suspense>
+    <Suspense fallback={<p style={{textAlign: 'center'}}>Loading...</p>}>
+      <Await resolve={event}>
+        {loadedEvent => <EventItem event={loadedEvent} />}
+      </Await>
+    </Suspense>
+    <Suspense fallback={<p style={{textAlign: 'center'}}>Loading...</p>}>
+      <Await resolve={events}>
+        {loadedEvents => <EventsList events={loadedEvents} />}
+      </Await>
+    </Suspense>
     </>
-  );
+  )
 }
 
 export default EventDetailPage;
 
-async function loadEvent(id) {
-  const response = await fetch('http://localhost:8080/events/' +  id);
+async function loadEvent(id){
+  const response = await fetch('http://localhost:8080/events/' + id);
 
   if (!response.ok) {
-    throw json({message: 'Something went wrong!'}, {status: 500});
+    throw json(
+      { message: 'Could not fetch details for selected event.' },
+      {
+        status: 500,
+      }
+    );
   } else {
-    const resData = await response.json();
-    return resData.events;
-  }
-}
-
-async function loadEvents() {
-  const response = await fetch('http://localhost:8080/events');
-
-    if (!response.ok) {
-      // return { isError: true, message: 'Could not load events.' };
-      // throw { message: 'Could not fetch events.' };
-      // throw new Response(JSON.stringify({ message: 'Could not fetch events.' }), { status: 500 });
-      throw json({ message: 'Could not fetch events.' }, { status: 500 });
-    } else {
-    // const resData = await response.json();
-    // return resData.events;
-    // const res = new Response('any data', {status: 201});
-    // return resData;
-    // return response;
-    const resData = await response.json();
+    const resData= await response.json();
     return resData.event;
   }
 }
 
-export async function loader({request, params}){
+async function loadEvents(){
+  const response = await fetch('http://localhost:8080/events');
+  if (!response.ok) {
+    // return {isError: true, message: 'Something went wrong!'};
+    // throw new Response(JSON.stringify({message: 'Something went wrong!'}), {status: 500});
+    //...
+    throw json({message: 'Something went wrong!'}, {status: 500});
+  } else {
+    // const resData = await response.json();
+    // // const res = new Response('any data', {state: 20});
+    // return resData.events;
+    const resData= await response.json();
+    return resData.events;
+  }
+}
+
+export async function loader({ request, params }) {
   const id = params.eventId;
 
   return defer({
     event: await loadEvent(id),
-    events: loadEvents(),
-  });
-  }
+    events: loadEvents()
+  })
+}
 
 
-
-export async function action ({request, params}) {
+export async function action({ request, params }) {
   const eventId = params.eventId;
   const response = await fetch('http://localhost:8080/events/' + eventId, {
     method: request.method,
   });
-
-
   if (!response.ok) {
-    throw json({message: 'Could not delete event'}, {status: 500});
-  } else {
-    return redirect('/events');
+    throw json(
+      { message: 'Could not delete selected event.' },
+      {
+        status: 500,
+      }
+    );
   }
+  return redirect('/events');
+
 }
