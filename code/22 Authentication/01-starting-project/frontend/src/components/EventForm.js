@@ -101,10 +101,12 @@ export async function action({ request, params }) {
     url = 'http://localhost:8080/events/' + eventId;
   }
 
+  const token = localStorage.getItem('token');
   const response = await fetch(url, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': 'Bearer' + token
     },
     body: JSON.stringify(eventData),
   });
@@ -119,4 +121,3 @@ export async function action({ request, params }) {
 
   return redirect('/events');
 }
-
