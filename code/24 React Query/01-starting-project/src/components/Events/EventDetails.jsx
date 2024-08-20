@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 
 import Header from '../Header.jsx';
 import { fetchEvent, deleteEvent, queryClient } from '../util/http.js';
+import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
   const params = useParams();
@@ -16,7 +17,7 @@ export default function EventDetails() {
   const { mutate } = useMutation({
     mutationFn: deleteEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ['events']});
+      queryClient.invalidateQueries({queryKey: ['events'], refetchType: 'none'});
       navigate('/events');
     }
   })
