@@ -1,4 +1,4 @@
-import MainHeader from '@/components/main-header';
+import MainHeader from '@/components/main-header/main-header';
 // import MainHeaderBackground from '@/components/main-header-background';
 
 import './globals.css';
