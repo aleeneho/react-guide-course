@@ -39,8 +39,8 @@ export async function saveMeal(meal) {
 
   db.prepare(`
     INSERT INTO meals
-    (title, summary, instruction, image, creator, creator_email, slug)
+    (title, summary, instructions, image, creator, creator_email, slug)
     VALUES
-    (@title, @summary, @instruction, @image, @creator, @creator_email, @slug)
+    (@title, @summary, @instructions, @image, @creator, @creator_email, @slug)
   `).run(meal);
 }
