@@ -22,7 +22,7 @@ export default function Header() {
 
       <header id="main-header">
         <h1>Your Challenges</h1>
-        <motion.button whileHover={{ scale: 1.1 }} trnasition={{ typr: 'spring', stiffness: 500 }} onClick={handleStartAddNewChallenge} className="button">
+        <motion.button whileHover={{ scale: 1.1, backgroundColor: '#8b11f0' }} transition={{ typr: 'spring', stiffness: 500 }} onClick={handleStartAddNewChallenge} className="button">
           Add Challenge
         </motion.button>
       </header>
