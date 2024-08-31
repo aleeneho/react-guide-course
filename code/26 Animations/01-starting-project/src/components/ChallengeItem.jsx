@@ -28,7 +28,7 @@ export default function ChallengeItem({
   }
 
   return (
-    <li>
+    <motion.li layout>
       <article className="challenge-item">
         <header>
           <img {...challenge.image} />
@@ -39,7 +39,7 @@ export default function ChallengeItem({
               <button onClick={handleCancel} className="btn-negative">
                 Mark as failed
               </button>
-              <button onClick={handleComplete}>Mark as completed</button>
+              <button onClick={handleComplete}>Mark as completed</button>s
             </p>
           </div>
         </header>
@@ -60,6 +60,6 @@ export default function ChallengeItem({
           )}
         </div>
       </article>
-    </li>
+    </motion.li>
   );
 }
