@@ -8,7 +8,7 @@ import './ProductItem.css';
 // import { ProductsContext } from '../../context/products-context';
 
 const ProductItem = props => {
-  const dispatch = useStore()[1];
+  const dispatch = useStore(false)[1];
   // const dispatch = useDispatch();
   // const toggleFav = useContext(ProductsContext).toggleFav;
 
