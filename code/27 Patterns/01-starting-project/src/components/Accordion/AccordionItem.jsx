@@ -1,6 +1,19 @@
 // import { useAccordionContext } from "./accordion"
+import { createContext, useContext } from "react"
 
-export default function AccordionItem({ children, className }) {
+const AccordionItemContext = createContext();
+
+export function useAccordionItemContext() {
+  const ctx = useContext(AccordionItemContext);
+
+  if (!ctx) {
+    throw new Error('Accordion.Item should be used inside Accordion');
+  }
+
+  return ctx;
+}
+
+export default function AccordionItem({ id, children, className }) {
   // const { openItemId, toggleItem } = useAccordionContext();
 
   // const isOpen = openItemId === id;
@@ -10,8 +23,10 @@ export default function AccordionItem({ children, className }) {
   // }
 
   return (
-    <li className={className}>
-      {children}
-    </li>
+    <AccordionItemContext.Provider value={{ id }}>
+      <li className={className}>
+        {children}
+      </li>
+    </AccordionItemContext.Provider>
   )
 }
